@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/master-layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<main layout:fragment="main-content">
+    <div class="container mt-3">
+        <h1>Create new Post</h1>
+        <form th:action="@{/article/new}" method="post" th:object="${article}" enctype="multipart/form-data">
+            <div class="row">
+
+
+                <div class="col-6 btn1">
+                    <div class="mb-3">
+                        <label class="form-label" for="title">Post Title</label>
+                        <input th:field="*{title}" class="form-control" id="title" type="text">
+                        <div class="form-text text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="author">Description</label>
+                       <input  th:field="*{author}" class="form-control" id="author"  type="textarea" rows="30" cols="20" />
+                        <div class="form-text text-danger" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></div>
+                    </div>
+                      <br>
+
+                    <!--               select-->
+                    <div  class="col-6 float-lg-end" >
+                        <label style="width: 100% ;background-color: red;float: right">
+                            <select name="pets" multiple size="4" style="width: 100% ;background-color: pink">
+
+                                <option value="Education">Education</option>
+                                <option value="cat">Sport</option>
+                                <option value="hamster" >Programming</option>
+                                <option value="parrot">Science</option>
+                                <option value="macaw">Biology</option>
+                                <option value="albatross">Other</option>
+
+                            </select>
+                        </label>
+                    </div>
+<!--                   Dropdown        -->
+                    <div class="col-6 ">
+                        <li class="nav-item dropdown" style="list-style-type: none;">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <ul class="dropdown-menu" style="list-style-type: none;text-decoration: none">
+                                <li><a class="dropdown-item" href="#">Education</a></li>
+                                <li><a class="dropdown-item" href="#">Sport</a></li>
+
+                                <li><a class="dropdown-item" href="#">Programming</a></li>
+
+                                <li><a class="dropdown-item" href="#">Science</a></li>
+                                <li><a class="dropdown-item" href="#">Biology</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Other</a></li>
+                            </ul>
+
+                        </li>
+                    </div>
+<!--                    btn in new Article -->
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <button class="btn btn-primary " type="submit" >Save</button>
+                    <button class="btn btn-primary float-lg-end " type="clear">Cancel</button>
+                </div>
+
+                <div class="col-3">
+                    <div class="mb-3">
+                        <label for="thumbnailFile" class="form-label">Thumbnail</label>
+                        <input class="form-control" type="file" id="thumbnailFile" name="thumbnailFile">
+                        <img class="w-75 mt-2" id="placeholder" th:src="@{/resources/img/default/placeholder.jpg}" alt="your image" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+
+<!--<th:block layout:fragment="subScript">-->
+<!--    <script th:inline="javascript">-->
+
+<!--    </script>-->
+
+<!--    <script>-->
+
+<!--    </script>-->
+<th:block layout:fragment="subScript">
+    <script>
+        const thumbnailFile = document.getElementById("thumbnailFile")
+        const placeholder = document.getElementById("placeholder")
+
+        thumbnailFile.onchange = (evt) => {
+            const [file] = thumbnailFile.files
+            if (file){
+                placeholder.src= URL.createObjectURL(file)
+            }
+        }
+    </script>
+</th:block>
+</th:block>
+
+</body>
+</html>
